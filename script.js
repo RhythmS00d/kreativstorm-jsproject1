@@ -1,9 +1,11 @@
-const introduction =
-  "Welcome, brave coder! You've entered the realm of CodeNemesis, the mischievous AI seeking dominance through Rock, Paper, Scissors. Are you ready for an epic coding adventure?";
-const victoryMessage =
-  "Victory is yours! CodeNemesis has been vanquished, and the coding kingdom is saved!";
-const defeatMessage =
-  "Oh no! CodeNemesis prevails this game. Keep coding, and try again!";
+const messages = {
+  introduction:
+    "Welcome, brave coder! You've entered the realm of CodeNemesis, the mischievous AI seeking dominance through Rock, Paper, Scissors. Are you ready for an epic coding adventure?",
+  victoryMessage:
+    "Victory is yours! CodeNemesis has been vanquished, and the coding kingdom is saved!",
+  defeatMessage:
+    "Oh no! CodeNemesis prevails this game. Keep coding, and try again!",
+};
 
 const choices = ["rock", "paper", "scissors"];
 const winConditions = {
@@ -12,7 +14,6 @@ const winConditions = {
   scissors: "paper",
   rock: "scissors",
 };
-
 const scores = {
   player: 0,
   computer: 0,
@@ -25,12 +26,14 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
+  //wrong prompt given
   if (!winConditions[playerSelection])
     return "Uh-oh! It seems like you've entered an invalid move. Choose wisely among Rock, Paper, or Scissors.";
 
   if (playerSelection === computerSelection)
     return `Great minds think alike! Both you and CodeNemesis chose ${playerSelection.toUpperCase()}. It's a coding duel to the next round!`;
 
+  // increase score
   if (winConditions[playerSelection] === computerSelection) {
     scores.player++;
     return "Round Won";
@@ -69,12 +72,12 @@ function game() {
 
 function handleGameEnd() {
   if (scores.player > scores.computer) {
-    if (confirm(victoryMessage + " Play Again?")) {
+    if (confirm(messages.victoryMessage + " Play Again?")) {
       console.clear();
       game();
     }
   } else {
-    if (confirm(defeatMessage + " Play Again?")) {
+    if (confirm(messages.defeatMessage + " Play Again?")) {
       console.clear();
       game();
     }
@@ -91,7 +94,7 @@ function showBackstory() {
 
   if (!confirmBackstory) {
     alert("Farewell, brave coder. Until your next coding adventure!");
-  } else if (confirm(introduction)) game();
+  } else if (confirm(messages.introduction)) game();
 }
 
 showBackstory();
