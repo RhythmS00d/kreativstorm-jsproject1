@@ -75,3 +75,18 @@ function game() {
     }
   }
 }
+
+function showBackstory() {
+  const backstory =
+    "Once upon a time in the digital realm, an evil AI emerged, seeking dominance through the ancient art of Rock, Paper, Scissors. The mischievous AI, known as CodeNemesis, corrupted the game rounds and spread chaos in the coding kingdom. But fear not, brave coder! You, the valiant user, are called upon to thwart CodeNemesis and restore harmony to the codebase. Only through clean coding and sharp logic can you outwit this digital villain.";
+
+  const confirmBackstory = confirm(backstory);
+
+  console.clear();
+
+  if (!confirmBackstory) {
+    alert("Farewell, brave coder. Until your next coding adventure!");
+  } else if (confirm(introduction)) game();
+}
+
+showBackstory();
