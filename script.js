@@ -64,6 +64,10 @@ function game() {
     );
   }
 
+  handleGameEnd();
+}
+
+function handleGameEnd() {
   if (scores.player > scores.computer) {
     if (confirm(victoryMessage + " Play Again?")) {
       console.clear();
