@@ -17,3 +17,9 @@ const scores = {
   player: 0,
   computer: 0,
 };
+
+function computerPlay() {
+  const random = Math.floor(Math.random() * choices.length);
+
+  return choices[random];
+}
