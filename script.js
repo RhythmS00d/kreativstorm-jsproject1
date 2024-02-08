@@ -29,18 +29,18 @@ function computerPlay() {
 function playRound(playerSelection, computerSelection) {
   //wrong prompt given
   if (!winConditions[playerSelection])
-    return "Uh-oh! It seems like you've entered an invalid move. Choose wisely among Rock, Paper, or Scissors.";
+    return { success: false, message: "Uh-oh! It seems like you've entered an invalid move. Choose wisely among Rock, Paper, or Scissors." };
 
   if (playerSelection === computerSelection)
-    return `Great minds think alike! Both you and CodeNemesis chose ${playerSelection.toUpperCase()}. It's a coding duel to the next round!`;
+    return { success: true, message: `Great minds think alike! Both you and CodeNemesis chose ${playerSelection.toUpperCase()}. It's a coding duel to the next round!` };
 
   // increase score
   if (winConditions[playerSelection] === computerSelection) {
     scores.player++;
-    return "Round Won";
+    return { success: true, message: "Round Won" };
   } else {
     scores.computer++;
-    return "Round Lost";
+    return { success: true, message: "Round Lost" };
   }
 }
 
@@ -51,32 +51,44 @@ function game() {
     computer: 0,
   };
 
+  let promptError = "";
+
   while (rounds > 0) {
     const playerSelection = prompt(
-      "Choose your move wisely: Rock, Paper, or Scissors?"
-    ).toLowerCase();
-    const computerSelection = computerPlay();
-    const result = playRound(playerSelection, computerSelection);
+      `${promptError.length > 0 ? promptError + "\n" : ""}Choose your move wisely: Rock, Paper, or Scissors?`
+    )
+    if (playerSelection) {
 
-    console.clear();
+      const computerSelection = computerPlay();
+      const result = playRound(playerSelection.toLowerCase(), computerSelection);
 
-    // if (result === "Round Lost" || result === "Round Won") rounds--;
-    rounds--;
+      if (result.success) {
 
-    console.log(`${result}, Rounds remaining: ${rounds}`);
-    console.log(
-      `You chose: ${playerSelection.toUpperCase()}, CodeNemesis chose: ${computerSelection.toUpperCase()}`
-    );
-    console.log(
-      `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
-    );
+        rounds--;
+
+        console.log(`${result.message}, Rounds remaining: ${rounds}`);
+        console.log(
+          `You chose: ${playerSelection.toUpperCase()}, CodeNemesis chose: ${computerSelection.toUpperCase()}`
+        );
+        console.log(
+          `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
+        );
+        console.log("")
+        promptError = ""
+      } else {
+        promptError = result.message
+        console.log(result.message)
+      }
+    } else {
+      break;
+    }
   }
-
   handleGameEnd();
 }
 
 function handleGameEnd() {
   const endGameMessageFormat = (messageType) => {
+    console.log(messages[messageType])
     if (confirm(messages[messageType] + " Play Again?")) {
       console.clear();
       game();
