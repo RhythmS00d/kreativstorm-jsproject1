@@ -52,7 +52,8 @@ function game() {
 
     console.clear();
 
-    if (result === "Round Lost" || result === "Round Won") rounds--;
+    // if (result === "Round Lost" || result === "Round Won") rounds--;
+    rounds--;
 
     console.log(`${result}, Rounds remaining: ${rounds}`);
     console.log(
