@@ -15,6 +15,10 @@ const winConditions = {
   scissors: "paper",
   rock: "scissors",
 };
+const scores = {
+  player: 0,
+  computer: 0,
+};
 
 function computerPlay() {
   const random = Math.floor(Math.random() * choices.length);
@@ -42,7 +46,7 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
   let rounds = 5;
-  const scores = {
+  scores = {
     player: 0,
     computer: 0,
   };
