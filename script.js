@@ -23,3 +23,19 @@ function computerPlay() {
 
   return choices[random];
 }
+
+function playRound(playerSelection, computerSelection) {
+  if (!winConditions[playerSelection])
+    return "Uh-oh! It seems like you've entered an invalid move. Choose wisely among Rock, Paper, or Scissors.";
+
+  if (playerSelection === computerSelection)
+    return `Great minds think alike! Both you and CodeNemesis chose ${playerSelection.toUpperCase()}. It's a coding duel to the next round!`;
+
+  if (winConditions[playerSelection] === computerSelection) {
+    scores.player++;
+    return "Round Won";
+  } else {
+    scores.computer++;
+    return "Round Lost";
+  }
+}
