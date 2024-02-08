@@ -5,6 +5,7 @@ const messages = {
     "Victory is yours! CodeNemesis has been vanquished, and the coding kingdom is saved!",
   defeatMessage:
     "Oh no! CodeNemesis prevails this game. Keep coding, and try again!",
+  drawMessage: "You gave a tough fight. But the game ends here with a draw!",
 };
 
 const choices = ["rock", "paper", "scissors"];
@@ -71,16 +72,19 @@ function game() {
 }
 
 function handleGameEnd() {
+  const endGameMessageFormat = (messageType) => {
+    if (confirm(messages[messageType] + " Play Again?")) {
+      console.clear();
+      game();
+    }
+  };
+
   if (scores.player > scores.computer) {
-    if (confirm(messages.victoryMessage + " Play Again?")) {
-      console.clear();
-      game();
-    }
+    endGameMessageFormat("victoryMessage");
+  } else if (scores.player === scores.computer) {
+    endGameMessageFormat("drawMessage");
   } else {
-    if (confirm(messages.defeatMessage + " Play Again?")) {
-      console.clear();
-      game();
-    }
+    endGameMessageFormat("defeatMessage");
   }
 }
 
