@@ -15,7 +15,7 @@ const winConditions = {
   scissors: "paper",
   rock: "scissors",
 };
-const scores = {
+let scores = {
   player: 0,
   computer: 0,
 };
