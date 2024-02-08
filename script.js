@@ -39,3 +39,39 @@ function playRound(playerSelection, computerSelection) {
     return "Round Lost";
   }
 }
+
+function game() {
+  let rounds = 5;
+
+  while (rounds > 0) {
+    const playerSelection = prompt(
+      "Choose your move wisely: Rock, Paper, or Scissors?"
+    ).toLowerCase();
+    const computerSelection = computerPlay();
+    const result = playRound(playerSelection, computerSelection);
+
+    console.clear();
+
+    if (result === "Round Lost" || result === "Round Won") rounds--;
+
+    console.log(`${result}, Rounds remaining: ${rounds}`);
+    console.log(
+      `You chose: ${playerSelection.toUpperCase()}, CodeNemesis chose: ${computerSelection.toUpperCase()}`
+    );
+    console.log(
+      `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
+    );
+  }
+
+  if (scores.player > scores.computer) {
+    if (confirm(victoryMessage + " Play Again?")) {
+      console.clear();
+      game();
+    }
+  } else {
+    if (confirm(defeatMessage + " Play Again?")) {
+      console.clear();
+      game();
+    }
+  }
+}
