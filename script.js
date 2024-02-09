@@ -29,7 +29,7 @@ function computerPlay() {
 function playRound(playerSelection, computerSelection) {
   //wrong prompt given
   if (!winConditions[playerSelection])
-    return { success: false, message: "Uh-oh! It seems like you've entered an invalid move. Choose wisely among Rock, Paper, or Scissors." };
+    return { success: false, message: "Uh-oh! It seems like you've entered an invalid move." };
 
   if (playerSelection === computerSelection)
     return { success: true, message: `Great minds think alike! Both you and CodeNemesis chose ${playerSelection.toUpperCase()}. It's a coding duel to the next round!` };
@@ -73,7 +73,7 @@ function game() {
         console.log(
           `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
         );
-        console.log("")
+        console.log(" ")
         promptError = ""
       } else {
         promptError = result.message
