@@ -67,9 +67,11 @@ function game() {
     , " ");
 
     if (!playerSelection) {
-      console.log("Game Ended by user");
-      console.log("Refresh to play again");
-      return null;
+      if(confirm("Are you sure to cancel the game")) {
+        console.log("Game Ended by user");
+        console.log("Refresh to play again");
+        return null;
+      }
     }
 
     const computerSelection = computerPlay();
