@@ -50,50 +50,53 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
+function playerPlay() {
+  const playerSelection = prompt(
+    `Choose your move wisely: Rock, Paper, or Scissors?`
+  );
+
+  return playerSelection ? playerSelection.toLowerCase().trim() : null;
+}
+
 function game() {
-  let rounds = 5;
+  let round = 1;
   scores = {
     player: 0,
     computer: 0,
   };
 
-  let promptError = "";
-
-  while (rounds > 0) {
-    const playerSelection = prompt(
-      `${
-        promptError.length > 0 ? promptError + "\n" : ""
-      }Choose your move wisely: Rock, Paper, or Scissors?`);
+  while (round <= 5) {
+    const computerSelection = computerPlay();
+    const playerSelection = playerPlay();
 
     if (playerSelection === null) {
-      if(confirm("Are you sure to cancel the game")) {
+      if (confirm("Are you sure to cancel the game")) {
         console.log("Game Ended by user");
         console.log("Refresh to play again");
-        return null;
-      }
-      game()
+        return;
+      } else game();
     }
 
-    const computerSelection = computerPlay();
-    const result = playRound(playerSelection.toLowerCase().trim(), computerSelection);
+    const result = playRound(playerSelection, computerSelection);
 
     if (result.success) {
-      rounds--;
-
-      console.log(`${result.message}, Rounds remaining: ${rounds}`);
+      console.log(`Round: ${round}`);
+      console.log(`${result.message}`);
       console.log(
-        `You chose: ${playerSelection.toUpperCase()}, CodeNemesis chose: ${computerSelection.toUpperCase()}`
+        `You chose: ${playerSelection
+          .toUpperCase()
+          .trim()}, CodeNemesis chose: ${computerSelection.toUpperCase()}`
       );
       console.log(
         `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
       );
-      console.log(" ");
-      promptError = "";
+
+      round++;
     } else {
-      promptError = result.message;
       console.log(result.message);
     }
   }
+
   handleGameEnd();
 }
 
