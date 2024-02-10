@@ -90,6 +90,9 @@ function game() {
       console.log(
         `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
       );
+      console.log(
+        "----------------------------------------------------------------"
+      );
 
       round++;
     } else {
