@@ -64,10 +64,16 @@ function game() {
       `${
         promptError.length > 0 ? promptError + "\n" : ""
       }Choose your move wisely: Rock, Paper, or Scissors?`
-    );
+    , " ");
+
+    if (!playerSelection) {
+      console.log("Game Ended by user");
+      console.log("Refresh to play again");
+      return null;
+    }
 
     const computerSelection = computerPlay();
-    const result = playRound(playerSelection.toLowerCase(), computerSelection);
+    const result = playRound(playerSelection.toLowerCase().trim(), computerSelection);
 
     if (result.success) {
       rounds--;
