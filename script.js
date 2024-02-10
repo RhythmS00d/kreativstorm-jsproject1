@@ -29,10 +29,16 @@ function computerPlay() {
 function playRound(playerSelection, computerSelection) {
   //wrong prompt given
   if (!winConditions[playerSelection])
-    return { success: false, message: "Uh-oh! It seems like you've entered an invalid move." };
+    return {
+      success: false,
+      message: "Uh-oh! It seems like you've entered an invalid move.",
+    };
 
   if (playerSelection === computerSelection)
-    return { success: true, message: `Great minds think alike! Both you and CodeNemesis chose ${playerSelection.toUpperCase()}. It's a coding duel to the next round!` };
+    return {
+      success: true,
+      message: `Great minds think alike! Both you and CodeNemesis chose ${playerSelection.toUpperCase()}. It's a coding duel to the next round!`,
+    };
 
   // increase score
   if (winConditions[playerSelection] === computerSelection) {
@@ -55,32 +61,29 @@ function game() {
 
   while (rounds > 0) {
     const playerSelection = prompt(
-      `${promptError.length > 0 ? promptError + "\n" : ""}Choose your move wisely: Rock, Paper, or Scissors?`
-    )
-    if (playerSelection) {
+      `${
+        promptError.length > 0 ? promptError + "\n" : ""
+      }Choose your move wisely: Rock, Paper, or Scissors?`
+    );
 
-      const computerSelection = computerPlay();
-      const result = playRound(playerSelection.toLowerCase(), computerSelection);
+    const computerSelection = computerPlay();
+    const result = playRound(playerSelection.toLowerCase(), computerSelection);
 
-      if (result.success) {
+    if (result.success) {
+      rounds--;
 
-        rounds--;
-
-        console.log(`${result.message}, Rounds remaining: ${rounds}`);
-        console.log(
-          `You chose: ${playerSelection.toUpperCase()}, CodeNemesis chose: ${computerSelection.toUpperCase()}`
-        );
-        console.log(
-          `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
-        );
-        console.log(" ")
-        promptError = ""
-      } else {
-        promptError = result.message
-        console.log(result.message)
-      }
+      console.log(`${result.message}, Rounds remaining: ${rounds}`);
+      console.log(
+        `You chose: ${playerSelection.toUpperCase()}, CodeNemesis chose: ${computerSelection.toUpperCase()}`
+      );
+      console.log(
+        `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
+      );
+      console.log(" ");
+      promptError = "";
     } else {
-      break;
+      promptError = result.message;
+      console.log(result.message);
     }
   }
   handleGameEnd();
@@ -88,7 +91,7 @@ function game() {
 
 function handleGameEnd() {
   const endGameMessageFormat = (messageType) => {
-    console.log(messages[messageType])
+    console.log(messages[messageType]);
     if (confirm(messages[messageType] + " Play Again?")) {
       console.clear();
       game();
