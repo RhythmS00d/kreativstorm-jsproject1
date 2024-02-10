@@ -63,10 +63,9 @@ function game() {
     const playerSelection = prompt(
       `${
         promptError.length > 0 ? promptError + "\n" : ""
-      }Choose your move wisely: Rock, Paper, or Scissors?`
-    , " ");
+      }Choose your move wisely: Rock, Paper, or Scissors?`);
 
-    if (!playerSelection) {
+    if (playerSelection === null) {
       if(confirm("Are you sure to cancel the game")) {
         console.log("Game Ended by user");
         console.log("Refresh to play again");
