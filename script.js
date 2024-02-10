@@ -72,6 +72,7 @@ function game() {
         console.log("Refresh to play again");
         return null;
       }
+      game()
     }
 
     const computerSelection = computerPlay();
