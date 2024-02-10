@@ -8,113 +8,57 @@ const messages = {
   drawMessage: "You gave a tough fight. But the game ends here with a draw!",
 };
 
-const choices = ["rock", "paper", "scissors"];
-const winConditions = {
-  // playerSelection:computerSelection
-  paper: "rock",
-  scissors: "paper",
-  rock: "scissors",
+let choices = ["rock", "paper", "scissors"];
+
+const computerPlay = () => {
+  const random = Math.floor(Math.random() * 3);
+  const computerChoice = choices[random];
+  return computerChoice;
 };
 let scores = {
-  player: 0,
-  computer: 0,
+  playerScore: 0,
+  computerScore: 0,
 };
+computerPlay();
+alert(messages.introduction);
+for (let i = 1; i <= 5; i++) {
+  const playerSelection = prompt().toLowerCase();
 
-function computerPlay() {
-  const random = Math.floor(Math.random() * choices.length);
+  const gamePlay = (playerSelection, computerSelection) => {
+    console.log(computerSelection);
+    console.log(playerSelection);
 
-  return choices[random];
-}
-
-function playRound(playerSelection, computerSelection) {
-  //wrong prompt given
-  if (!winConditions[playerSelection])
-    return { success: false, message: "Uh-oh! It seems like you've entered an invalid move." };
-
-  if (playerSelection === computerSelection)
-    return { success: true, message: `Great minds think alike! Both you and CodeNemesis chose ${playerSelection.toUpperCase()}. It's a coding duel to the next round!` };
-
-  // increase score
-  if (winConditions[playerSelection] === computerSelection) {
-    scores.player++;
-    return { success: true, message: "Round Won" };
-  } else {
-    scores.computer++;
-    return { success: true, message: "Round Lost" };
-  }
-}
-
-function game() {
-  let rounds = 5;
-  scores = {
-    player: 0,
-    computer: 0,
-  };
-
-  let promptError = "";
-
-  while (rounds > 0) {
-    const playerSelection = prompt(
-      `${promptError.length > 0 ? promptError + "\n" : ""}Choose your move wisely: Rock, Paper, or Scissors?`
-    )
-    if (playerSelection) {
-
-      const computerSelection = computerPlay();
-      const result = playRound(playerSelection.toLowerCase(), computerSelection);
-
-      if (result.success) {
-
-        rounds--;
-
-        console.log(`${result.message}, Rounds remaining: ${rounds}`);
-        console.log(
-          `You chose: ${playerSelection.toUpperCase()}, CodeNemesis chose: ${computerSelection.toUpperCase()}`
-        );
-        console.log(
-          `Player Score: ${scores.player}, Computer Score: ${scores.computer}`
-        );
-        console.log(" ")
-        promptError = ""
-      } else {
-        promptError = result.message
-        console.log(result.message)
-      }
-    } else {
-      break;
-    }
-  }
-  handleGameEnd();
-}
-
-function handleGameEnd() {
-  const endGameMessageFormat = (messageType) => {
-    console.log(messages[messageType])
-    if (confirm(messages[messageType] + " Play Again?")) {
-      console.clear();
-      game();
+    if (playerSelection === computerSelection) {
+      scores.playerScore += 0;
+      scores.computerScore += 0;
+    } else if (playerSelection === "rock" && computerSelection === "scissors") {
+      scores.playerScore += 1;
+    } else if (playerSelection === "rock" && computerSelection === "paper") {
+      scores.computerScore += 1;
+    } else if (
+      playerSelection === "paper" &&
+      computerSelection === "scissors"
+    ) {
+      scores.computerScore += 1;
+    } else if (playerSelection === "paper" && computerSelection === "rock") {
+      scores.playerScore += 1;
+    } else if (playerSelection === "scissors" && computerSelection === "rock") {
+      scores.computerScore += 1;
+    } else if (
+      playerSelection === "scissors" &&
+      computerSelection === "paper"
+    ) {
+      scores.playerScore += 1;
     }
   };
-
-  if (scores.player > scores.computer) {
-    endGameMessageFormat("victoryMessage");
-  } else if (scores.player === scores.computer) {
-    endGameMessageFormat("drawMessage");
-  } else {
-    endGameMessageFormat("defeatMessage");
-  }
+  console.log(gamePlay(playerSelection, computerPlay()));
 }
-
-function showBackstory() {
-  const backstory =
-    "Once upon a time in the digital realm, an evil AI emerged, seeking dominance through the ancient art of Rock, Paper, Scissors. The mischievous AI, known as CodeNemesis, corrupted the game rounds and spread chaos in the coding kingdom. But fear not, brave coder! You, the valiant user, are called upon to thwart CodeNemesis and restore harmony to the codebase. Only through clean coding and sharp logic can you outwit this digital villain.";
-
-  const confirmBackstory = confirm(backstory);
-
-  console.clear();
-
-  if (!confirmBackstory) {
-    alert("Farewell, brave coder. Until your next coding adventure!");
-  } else if (confirm(messages.introduction)) game();
+console.log(scores);
+if (scores.playerScore > scores.computerScore) {
+  alert(messages.victoryMessage);
+} else if (scores.playerScore === scores.computerScore) {
+  alert(messages.drawMessage);
+} else if (scores.playerScore < scores.computerScore) {
+  alert(messages.defeatMessage);
 }
-
-showBackstory();
+console.log(computerPlay());
